@@ -46,21 +46,7 @@ describe('walk', function() {
 		})
 	});
 
-	[
-		'literal/boolean/true',
-		'statement/debugger',
-		'statement/empty',
-		'statement/block',
-		'statement/expression',
-		'expression/binary/add',
-		'expression/update/prefix-inc',
-		'expression/logical/and',
-		'expression/logical/or',
-		'expression/unary/not',
-		'expression/sequence/example-1',
-		'expression/array/example-1',
-		'expression/object/empty',
-	].forEach(function(target) {
+	demo.list().forEach(function(target) {
 
 		describe(target, function() {
 			it('without any error', function() {
