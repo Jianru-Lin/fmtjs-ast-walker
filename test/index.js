@@ -1,6 +1,6 @@
 var assert = require('chai').assert
 var demo = require('fmtjs-demo')
-var walk = require('../index')
+var walk = require('../index').walk
 
 describe('walk', function() {
 	describe('empty program', function() {

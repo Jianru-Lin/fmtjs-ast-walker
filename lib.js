@@ -2,17 +2,30 @@ var stack = []
 
 var nav = {
 	parent: function() {
-		return stack[0]
+		if (stack[0]) {
+			return stack[0].ast
+		}
+		else {
+			return undefined
+		}
 	},
-	parent_at: function(i) {
-		return stack[i]
+	rel: function() {
+		if (stack[0]) {
+			return stack[0].rel
+		}
+		else {
+			return undefined
+		}
 	},
-	parent_len: function() {
-		return stack.length
-	},
-	parent_each: function(cb) {
-		stack.forEach(cb)
-	}
+	// parent_at: function(i) {
+	// 	return stack[i]
+	// },
+	// parent_len: function() {
+	// 	return stack.length
+	// },
+	// parent_each: function(cb) {
+	// 	stack.forEach(cb)
+	// }
 }
 
 var callout = {
@@ -370,7 +383,7 @@ function walk_in(ast, rel) {
 		assert(type_handler[child.type])
 
 		try {
-			stack.shift({
+			stack.unshift({
 				ast: parent,
 				rel: rel
 			})
@@ -379,7 +392,7 @@ function walk_in(ast, rel) {
 			callout.leave(child, nav)
 		}
 		finally {
-			stack.unshift()
+			stack.shift()
 		}
 	}
 }
@@ -410,4 +423,29 @@ function walk(ast, user_callout) {
 	callout.leave(ast, nav)
 }
 
-module.exports = exports = walk
+function walk_type(ast, type_callout) {
+	assert(ast)
+	assert(type_handler[ast.type])
+
+	type_handler = type_handler || {}
+
+	walk(ast, {
+		enter: function(ast, nav) {
+			var type = ast.type
+			var handler = type_callout[ast.type]
+			if (handler && handler.enter) {
+				handler.enter(ast, nav)
+			}
+		},
+		leave: function(ast, nav) {
+			var type = ast.type
+			var handler = type_callout[ast.type]
+			if (handler && handler.leave) {
+				handler.leave(ast, nav)
+			}
+		}
+	})
+}
+
+exports.walk = walk
+exports.walk_type = walk_type
