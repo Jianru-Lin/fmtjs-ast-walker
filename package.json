@@ -1,6 +1,6 @@
 {
     "name": "fmtjs-ast-walker",
-    "version": "5.5.2",
+    "version": "5.5.3",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -12,7 +12,7 @@
     "devDependencies": {
         "chai": "^3.5.0",
         "esprima": "^3.1.0",
-        "fmtjs-demo": "5.5.2",
+        "fmtjs-demo": "5.5.3",
         "mocha": "^3.1.2"
     }
 }
