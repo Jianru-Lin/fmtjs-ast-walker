@@ -369,6 +369,7 @@ function walk_in(ast, rel) {
 	if (Array.isArray(children)) {
 		if (children.length < 1) return
 		children.forEach(function(child) {
+			if (!child) return
 			fire(ast, rel, child)
 		})
 	}
